@@ -1,6 +1,17 @@
 // src/js/reducers/index.js
-import {ADD_ARTICLE, FOUND_BAD_WORD, DATA_LOADED} from "../constants/action-type"
 
+import { combineReducers } from 'redux'
+import articleReducer from './article'
+import dataReducer from './data'
+
+// export default articleReducer;
+
+// const rootReducer =  combineReducers({
+//     article : articleReducer,
+//     data : dataReducer
+// })
+
+import {ADD_ARTICLE, FOUND_BAD_WORD, DATA_LOADED} from "../constants/action-type"
 const initialState = {
     articles: [],
     remoteArticles : []
