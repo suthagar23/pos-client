@@ -1,8 +1,9 @@
 // src/js/reducers/index.js
-import {ADD_ARTICLE, FOUND_BAD_WORD} from "../constants/action-type"
+import {ADD_ARTICLE, FOUND_BAD_WORD, DATA_LOADED} from "../constants/action-type"
 
 const initialState = {
-    articles: []
+    articles: [],
+    remoteArticles : []
   };
   function rootReducer(state = initialState, action) {
       if (action.type === ADD_ARTICLE) {
@@ -11,8 +12,13 @@ const initialState = {
           });
         //   state.articles.push(action.payload)
       }
-      else if (action.type === FOUND_BAD_WORD) {
-          console.log("sutja");
+      if (action.type === FOUND_BAD_WORD) {
+          console.log("FOUND_BAD_WORD");
+      }
+      if (action.type === DATA_LOADED) {
+        return Object.assign({}, state, {
+          remoteArticles: state.remoteArticles.concat(action.payload)
+        });
       }
     return state;
   };
