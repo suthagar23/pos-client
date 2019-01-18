@@ -1,5 +1,5 @@
 // src/js/reducers/index.js
-import {ADD_ARTICLE} from "../constants/action-type"
+import {ADD_ARTICLE, FOUND_BAD_WORD} from "../constants/action-type"
 
 const initialState = {
     articles: []
@@ -10,6 +10,9 @@ const initialState = {
               articles : state.articles.concat(action.payload)
           });
         //   state.articles.push(action.payload)
+      }
+      else if (action.type === FOUND_BAD_WORD) {
+          console.log("sutja");
       }
     return state;
   };
