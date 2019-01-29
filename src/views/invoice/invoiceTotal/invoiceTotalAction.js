@@ -1,4 +1,4 @@
-import {DISCOUNT} from "../../utils/constants";
+import {DISCOUNT} from '../../../utils/constants';
 
 export function calculateTotal(invoiceItems, invoiceInfo) {
   return (dispatch) => {
@@ -14,14 +14,14 @@ export function calculateTotal(invoiceItems, invoiceInfo) {
     const invoiceNetAmount = invoiceGrossAmount - invoiceDiscount;
 
     
-      if(invoiceInfo.invoiceGrossAmount !== invoiceGrossAmount) {
-        const updatedInvoiceInfo = {
-          grossAmount: invoiceGrossAmount,
-          discount : invoiceDiscount,
-          netAmount: invoiceNetAmount,
-        }
-        dispatch ({ type: "UPDATE_GROSSAMOUNT", payload: updatedInvoiceInfo });
-      }
+    if(invoiceInfo.invoiceGrossAmount !== invoiceGrossAmount) {
+      const updatedInvoiceInfo = {
+        grossAmount: invoiceGrossAmount,
+        discount : invoiceDiscount,
+        netAmount: invoiceNetAmount,
+      };
+      dispatch ({ type: 'UPDATE_GROSSAMOUNT', payload: updatedInvoiceInfo });
+    }
     
     
     

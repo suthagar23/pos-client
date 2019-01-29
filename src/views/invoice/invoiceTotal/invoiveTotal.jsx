@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux'; 
 import PropTypes from 'prop-types';
-import Container from '../../components/container/container.jsx';
-import * as constants from "../../utils/constants";
+import Container from '../../../components/container/container.jsx';
+import * as constants from '../../../utils/constants';
 // import * as constants from './itemSearchConstants';
 
-import {calculateTotal} from "./invoiceTotalAction";
+import {calculateTotal} from './invoiceTotalAction';
 
 const mapStateToProps = (state, ownProps) => {
   return { invoiceItems: state.invoiceItems,
     invoiceInfo : state.invoiceInfo,
-     cookies: ownProps.cookies, };
+    cookies: ownProps.cookies, };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -58,6 +58,27 @@ class InvoiceTotal extends Component {
     );
   }
 }
+
+InvoiceTotal.propTypes = {
+  cookies : PropTypes.object,
+  redux: PropTypes.object.isRequired,
+  redux: PropTypes.shape({
+    state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    state: PropTypes.shape({
+      invoiceItems: PropTypes.object.isRequired, 
+      invoiceInfo: PropTypes.object.isRequired, 
+      invoiceInfo: PropTypes.shape({
+        invoiceGrossAmount: PropTypes.number.isRequired, 
+        invoiceDiscount: PropTypes.number.isRequired, 
+        invoiceNetAmount: PropTypes.number.isRequired, 
+      })
+    }),
+    actions: PropTypes.shape({
+      calculateTotal: PropTypes.func.isRequired, 
+    })
+  })
+};
 
 // export default InvoiceTotal;
 const InvoiceTotalComponent = connect(mapStateToProps,mapDispatchToProps, mergeProps)(InvoiceTotal);

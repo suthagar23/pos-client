@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl, Alert } from 'react-bootstrap';
-import ItemSearch from './itemSearch.jsx'; 
-import InvoiceTotal from './invoiveTotal.jsx';
+import ItemSearch from '../invoiceSearch/itemSearch.jsx'; 
+import InvoiceTotal from '../invoiceTotal/invoiveTotal.jsx';
 import styles from './style.css';
-import Container from '../../components/container/container.jsx';
+import Container from '../../../components/container/container.jsx';
 import { connect } from 'react-redux'; 
 import PropTypes from 'prop-types';
-import {CURRENCY} from "../../utils/constants";
-const thArray = ['Name', 'Price', 'Qty', 'Amount'];
+import {CURRENCY} from '../../../utils/constants';
+import { DeleteAuthCookie, GetAuthCookie } from '../../../utils/authUtils';
 
+const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
 const tdArray = [
   ['Dakota Rice', '$7', 2, '$14'],
   ['Minerva Hooper', '$2', 1, '$2'],
@@ -48,7 +49,7 @@ class InvoiceItems extends Component {
     for (var itemId in invoiceItems) {
       if (invoiceItems.hasOwnProperty(itemId)) {
         const item = invoiceItems[itemId];
-        invoiceItemsArray = [...invoiceItemsArray, [item.itemName, item.unitPrice, item.quantity, item.amount]];
+        invoiceItemsArray = [...invoiceItemsArray, [item.itemCode, item.itemName, item.unitPrice, item.quantity, item.amount]];
       }
     }
     return invoiceItemsArray;
@@ -57,8 +58,17 @@ class InvoiceItems extends Component {
   
 
   render() {
-    const subTitle = "Started : ".concat(new Date()).concat(' by @').concat('user')
-    console.log(subTitle);
+    const { cookies } = this.props;
+    const {userInfo} = GetAuthCookie(cookies) || {};
+    let logedInUserFirstName = 'user';
+    if (typeof userInfo !== 'undefined') {
+      logedInUserFirstName = userInfo.firstName;
+    }
+    // Need to refactor
+    let [date, time] = new Date().toLocaleString('en-US').split(', ');
+    let startedDateTime = date.concat(' ').concat(time);
+    const subTitleInfo = 'Started : '.concat(startedDateTime).concat(' by @').concat(logedInUserFirstName);
+
     return (
       <div className="content">
         <Grid fluid>
@@ -66,19 +76,19 @@ class InvoiceItems extends Component {
             <Col md={12}>
               <Container
                 title="Invoice #1230"
-                subTitle="Started : 12/01/2019 14:23:24 by @ram"
+                subTitle={subTitleInfo}
                 ctTableFullWidth
                 ctTableResponsive
                 content={
                   <div>
-                    <ItemSearch />
+                    <ItemSearch {...this.props}/>
                     <Table striped hover>
                
                       <thead style={{display : 'block'}}>
                         <tr style={{ width: '100%', display: 'table'}}>
                           {thArray.map((prop, key) => {
                             let textRight = '';
-                            if (key !==0) {
+                            if (key !==0 && key !== 1) {
                               textRight = 'text-right';
                             }
                             return <th className={textRight + ' col' + prop} key={key}>{prop}</th>;
@@ -93,8 +103,8 @@ class InvoiceItems extends Component {
                             <tr key={key} style={{ width: '100%', display: 'table'}}>
                               {prop.map((prop, key) => {
                                 // let currencySymbol = CURRENCY;
-                                let textRight = (key !==0) ? textRight = 'text-right' : textRight = '';
-                                let currencySymbol = (key ===1 || key === 3) ? currencySymbol = CURRENCY : currencySymbol = '';
+                                let textRight = (key !== 0 && key !== 1) ? textRight = 'text-right' : textRight = '';
+                                let currencySymbol = (key ===2 || key === 4) ? currencySymbol = CURRENCY : currencySymbol = '';
 
                                
                                
@@ -118,6 +128,17 @@ class InvoiceItems extends Component {
     );
   }
 }
+
+InvoiceItems.propTypes = {
+  cookies : PropTypes.object.isRequired,
+  redux: PropTypes.object.isRequired,
+  redux: PropTypes.shape({
+    state: PropTypes.object.isRequired,
+    state: PropTypes.shape({
+      invoiceItems: PropTypes.object.isRequired,
+    })
+  })
+};
 
 // export default InvoiceItems;
 const InvoiceItemsComponent = connect(mapStateToProps,mapDispatchToProps, mergeProps)(InvoiceItems);

@@ -1,7 +1,8 @@
 
-import Dashboard from '../views/dashboard/dashboard.jsx';
+import Sales from '../views/sales/sales.jsx';
 import NotFound from '../views/notfound/notfound.jsx';
 import Login from '../views/login/loginView.jsx';
+import Logout from '../views/logout/logout.jsx';
 import * as constants from './routesConstants';
 
 const dashboardRoutes = [
@@ -12,10 +13,16 @@ const dashboardRoutes = [
     component: Login
   },
   {
-    path: constants.PATH_DASHBOARD,
-    name: 'Dashboard',
+    path: constants.PATH_LOGOUT,
+    name: 'Logout',
     icon: 'pe-7s-graph',
-    component: Dashboard
+    component: Logout
+  },
+  {
+    path: constants.PATH_SALES,
+    name: 'Sales',
+    icon: 'pe-7s-graph',
+    component: Sales
   },
   {
     path: constants.PATH_404,
@@ -23,7 +30,7 @@ const dashboardRoutes = [
     icon: 'pe-7s-erro',
     component: NotFound
   },
-  { redirect: true, path: '/', to: constants.PATH_404, name: 'NotFound' }
+  { redirect: true, path: '/', to: constants.PATH_SALES, name: 'NotFound' }
 ];
 
 export default dashboardRoutes;

@@ -9,6 +9,7 @@ import * as constants from './loginConstants';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'; 
 import { DeleteAuthCookie, GetAuthCookie } from '../../utils/authUtils';
+import {PATH_SALES, PATH_AUTH} from '../../routes/routesConstants';
 
 const mapStateToProps = (state, ownProps) => {
   return { auth: state.auth, cookies: ownProps.cookies, };
@@ -43,12 +44,11 @@ class Login extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
   
-  componentDidMount() {
-    const { cookies, history, dispatch } = this.props;
+  componentDidMount() {  
+    const { cookies, history } = this.props;
     const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
     if (typeof isLogedIn !== 'undefined' && typeof userInfo !== 'undefined') {
-      history.push('/dashboard');
-      // dispatch({ type: constants.AUTHENTICATEION_SUCCESS, payload:  { isLogedIn : true, userInfo: userInfo } });
+      history.push(PATH_SALES);
     }
     else {
       DeleteAuthCookie(cookies);
@@ -130,7 +130,7 @@ class Login extends Component {
         if (user) {
           return (
             <div>
-              <Redirect to='/dashboard' /> 
+              <Redirect to={PATH_SALES} /> 
               {showAlerts('success', ( state_AuthObject.success.message|| 'Success'))}
             </div>);
         }

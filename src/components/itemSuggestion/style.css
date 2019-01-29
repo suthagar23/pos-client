@@ -1,0 +1,16 @@
+.selected-row {
+    background-color: #f5d2cd !important;
+}
+
+.suggestion-pointer {
+    cursor: pointer;
+}
+
+.suggestions-header {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+.suggestions-contents {
+    border: 10px solid #cccccc;
+}

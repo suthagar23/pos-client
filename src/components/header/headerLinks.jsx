@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
-class HeaderLinks extends Component {
+export class HeaderLinks extends Component {
   render() { 
     return (
       <div>
         <Nav pullRight>
-          <NavItem eventKey={1} href="#">
-            Sales
-          </NavItem>
+          <NavItem eventKey={1} href="#/orders">Orders</NavItem>
+          <NavItem eventKey={1} href="#/sales">Sales</NavItem>
           <NavDropdown
             eventKey={2}
             title="Profile"
@@ -18,7 +17,7 @@ class HeaderLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Log out</MenuItem>
           </NavDropdown>
-          <NavItem eventKey={3} href="#">
+          <NavItem eventKey={3} href="#/logout">
             Log out
           </NavItem>
         </Nav>
@@ -27,4 +26,17 @@ class HeaderLinks extends Component {
   }
 }
 
-export default HeaderLinks;
+export class LoginLinks extends Component {
+  render() { 
+    return (
+      <div>
+        <Nav pullRight>
+          <NavItem eventKey={1} href="#/auth">
+            Log in
+          </NavItem>
+        </Nav>
+      </div>
+    );
+  }
+}
+

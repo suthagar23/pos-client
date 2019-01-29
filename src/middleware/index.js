@@ -4,9 +4,10 @@
 
 export function forbiddenWordsMiddleware({ dispatch }) {
   return (next) => {
-    console.log('Im Middle Ware 1');
+    // console.log('Im Middle Ware 1');
     return (action) => {
-      console.log('Im Middle Ware 2');
+      // console.log('Im Middle Ware 2');
+      
       // // do your stuff
       // if (action.type === ADD_ARTICLE) {
       //   const foundWord = forbiddenWords.filter(word => action.payload.title.includes(word));

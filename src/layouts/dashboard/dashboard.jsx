@@ -40,11 +40,11 @@ class Dashboard extends Component {
                 return <Redirect from={prop.path} to={prop.to} key={key}  />;
               return (
                 // <Route path={prop.path} component={prop.component}  key={key} cookies={ prop.cookies}/>
-                <Route path={prop.path} key={key} render={(props) => (<prop.component {...props}  cookies={this.props.cookies} />) }/>
+                <Route path={prop.path} key={key} render={(props) => (<prop.component {...this.props}  cookies={this.props.cookies} />) }/>
               );
             })}
           </Switch>
-          <Footer />
+          <Footer {...this.props} />
         </div>
       </div>
     );

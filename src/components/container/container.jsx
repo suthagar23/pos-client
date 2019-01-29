@@ -14,21 +14,29 @@ class Container extends Component {
           </div>
         );
       }
+      else if (typeof this.props.subTitle !== 'undefined') {
+        return (
+          <div className={'header' + (this.props.hCenter ? ' text-center' : '')}>
+            <p className="sub-tile">{this.props.subTitle}</p>
+          </div>
+        );
+      }
       return null;
     };
     return (
-      <div className={'card' + (this.props.plain ? ' card-plain' : '')}>
+      <div className={'card ' + (this.props.plain ? ' card-plain' : '') + (this.props.className ? this.props.className : '')} style={this.props.style}>
 
         
         <ContainerHeadre />
         <div
           className={
-            'content' +  ' content-updated' +
+            'content ' +  ' content-updated ' +
             (this.props.ctAllIcons ? ' all-icons' : '') +
             (this.props.ctTableFullWidth ? ' table-full-width' : '') +
             (this.props.ctTableResponsive ? ' table-responsive' : '') +
             (this.props.ctTableUpgrade ? ' table-upgrade' : '')
           }
+          
         >
           {this.props.content}
 
@@ -49,7 +57,9 @@ Container.propTypes = {
   plain: PropTypes.string,
   hCenter: PropTypes.string,
   title: PropTypes.string,
-  category: PropTypes.string,
+  subTitle: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
   ctAllIcons: PropTypes.string,
   ctTableFullWidth: PropTypes.bool,
   ctTableResponsive: PropTypes.bool,

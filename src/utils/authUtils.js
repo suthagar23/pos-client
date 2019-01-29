@@ -1,5 +1,5 @@
 import { COOKIE_AUTH } from './constants';
-import fetchPost from './restMethods';
+import { fetchPost } from './restMethods';
 import * as constants from '../views/login/loginConstants';
 
 export const CreateAuthCookie = (cookies, object) => {

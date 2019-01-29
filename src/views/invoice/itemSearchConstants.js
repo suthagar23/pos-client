@@ -1,2 +1,0 @@
-export const EMPTY_SEARCH_VALUE_FOUND = 'EMPTY_SEARCH_VALUE_FOUND';
-export const FIND_ITEM = 'FIND_ITEM';

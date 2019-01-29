@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import HeaderLinks from './headerLinks.jsx';
+import { HeaderLinks, LoginLinks} from './headerLinks.jsx';
 import PropTypes from 'prop-types';
 import dashboardRoutes from '../../routes/dashboard.jsx';
 import { GetAuthCookie } from '../../utils/authUtils';
@@ -54,7 +54,11 @@ class Header extends Component {
         );
       }
       else {
-        return (null);
+        return (
+          <Navbar.Collapse>
+            <LoginLinks />
+          </Navbar.Collapse>
+        );
       }
     };
 

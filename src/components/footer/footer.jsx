@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { Grid } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { GetAuthCookie } from '../../utils/authUtils';
 
-const mapStateToProps = state => {
-  return { auth: state.auth };
+const mapStateToProps = (state, ownProps) => {
+  return { auth: state.auth, cookies: ownProps.cookies };
 };
 
 class Footer extends Component {
   render() {
 
     const PosFooterAPIDocsLinks = () => {
-      if (this.props.auth.logedIn) {
+      const { cookies } = this.props;
+      const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
+      if (typeof isLogedIn !== 'undefined' && typeof userInfo !== 'undefined') {
         return (
           <li>
             <a href="#docs">Docs</a>
@@ -46,6 +49,7 @@ class Footer extends Component {
 
 
 Footer.propTypes = {
+  cookies : PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   auth: PropTypes.shape({
     logedIn: PropTypes.bool.isRequired

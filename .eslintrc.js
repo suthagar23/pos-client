@@ -24,7 +24,7 @@ module.exports = {
       "quotes": ["error","single"],
       "semi": [2,"always"],
       "linebreak-style": ["error","unix"],
-      "no-underscore-dangle":  ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }]
+      "no-underscore-dangle":  ["error", { "allow": ["_id", "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }]
     },
     "plugins": [
     ],
