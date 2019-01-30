@@ -32,6 +32,7 @@ class Logout extends Component {
   }
   
   componentDidMount() {  
+    console.log(this.props);
     const { cookies } = this.props;
     DeleteAuthCookie(cookies);
   }

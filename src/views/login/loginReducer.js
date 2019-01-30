@@ -86,6 +86,14 @@ export default (state = INITAL_STATE, action) => {
     return prepareNextState(state, 'error', constants.TYPE_LOGIN_REQUIRED_ERROR, 400, 'Sorry, something went wrong. Please login again');
   }
 
+  if (action.type === constants.RESET_AUTH) {
+    return Object.assign({}, state, {
+      ...state,
+      error: undefined,
+      success: undefined,
+    });
+  }
+  
   return Object.assign({}, state, {
     ...state,
     error: undefined,

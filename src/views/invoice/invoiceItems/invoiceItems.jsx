@@ -43,6 +43,10 @@ class InvoiceItems extends Component {
     super();
   }
 
+  componentDidMount(){
+    console.log(this.props);
+  }
+
   prepareArray() {
     const invoiceItems = this.props.redux.state.invoiceItems;
     let invoiceItemsArray = [];

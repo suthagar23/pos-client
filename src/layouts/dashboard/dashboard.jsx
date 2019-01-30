@@ -16,6 +16,8 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     // this.setState({ });
+    // console.log(this.props)
+
    
   }
   componentDidUpdate(e) {
@@ -35,7 +37,6 @@ class Dashboard extends Component {
           <Header {...this.props} />
           <Switch>
             {dashboardRoutes.map((prop, key) => {
-           
               if (prop.redirect)
                 return <Redirect from={prop.path} to={prop.to} key={key}  />;
               return (

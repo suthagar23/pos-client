@@ -1,3 +1,4 @@
+import * as constants from './invoiceTotalConstants';
 
 const INITAL_STATE =  { 
   invoiceId : undefined,
@@ -8,7 +9,7 @@ const INITAL_STATE =  {
 
 export default (state = INITAL_STATE, action) => {
 
-  if (action.type === 'UPDATE_GROSSAMOUNT') {
+  if (action.type === constants.UPDATE_GROSSAMOUNT) {
     console.log('UPDATE_GROSSAMOUNT', action.payload);
     return Object.assign({}, state, {
       ...state,
@@ -17,5 +18,10 @@ export default (state = INITAL_STATE, action) => {
       invoiceNetAmount: action.payload.netAmount,
     });
   }
+  
+  if (action.type === constants.RESET_INVOICE_TOTAL) {
+    return INITAL_STATE;
+  }
+
   return  state;
 };

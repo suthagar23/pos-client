@@ -45,6 +45,10 @@ export default (state = INITAL_STATE, action) => {
     });
   }
 
+  if (action.type === constants.RESET_SUGGESTION_ITEMS) {
+    return INITAL_STATE;
+  }
+
   return state;
 };
   

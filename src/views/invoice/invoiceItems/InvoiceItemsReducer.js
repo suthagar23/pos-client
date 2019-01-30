@@ -19,6 +19,12 @@ export default (state = INITAL_STATE, action) => {
   if (action.type === constants.ADD_UPDATED_LIST) {
     return action.payload;
   }
+
+  if (action.type === constants.RESET_INVOICE_ITEMS) {
+    const {sampleItemId: sampleInitialItem, ...remainnitialIState} = INITAL_STATE;
+    return remainnitialIState;
+  }
+
   return remainState;
 };
   
