@@ -1,0 +1,23 @@
+.notification-top-right {
+    /* position: absolute; */
+    /* z-index: 199; */
+    width: 600px;
+    /* right: 20px; */
+    /* top: 10px; */
+}
+
+.suthagar {
+    position: fixed;
+    z-index: 19;
+    right: 10px;
+    top: 10px;
+}
+
+.close {
+    position: inherit !important;
+    margin-top: -4px !important; 
+}
+
+.alert-success {
+    background-color: #1b983c !important;
+}

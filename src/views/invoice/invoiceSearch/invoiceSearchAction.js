@@ -1,35 +1,6 @@
 import * as constants from './invoiceSearchConstants';
 import { fetchGet } from '../../../utils/restMethods';
 
-const sampleItems = {
-  '100' : {
-    '_id':'100',
-    'itemName':'Apple',
-    'itemCode':'APP190',
-    'unitPrice':107,
-    'discountPercentage':10,
-    'stockCount':100,
-  },
-  '101' : {
-    '_id':'101',
-    'itemName':'Orange',
-    'itemCode':'ORG679',
-    'unitPrice':220,
-    'discountPercentage':0,
-    'stockCount':100,
-  },
-  '101' : {
-    '_id':'101',
-    'itemName':'Pineapple',
-    'itemCode':'PPP456',
-    'unitPrice':90,
-    'discountPercentage':21,
-    'stockCount':100,
-  }
-};
-
-
-
 export function searchForSuggestions(searchValue) {
   return (dispatch) => {
     let response = fetchGet('/item/search', searchValue);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { HeaderLinks, LoginLinks} from './headerLinks.jsx';
+import HeaderLinks, { LoginLinks} from './headerLinks.jsx';
 import PropTypes from 'prop-types';
 import dashboardRoutes from '../../routes/dashboard.jsx';
 import { GetAuthCookie } from '../../utils/authUtils';
@@ -15,8 +15,8 @@ class Header extends Component {
     super(props);
     this.state = {};
   }
-  
-  getBrand() {
+
+  getPageTitle() {
     var name;
     dashboardRoutes.map((prop, key) => {
       if (prop.collapse) {
@@ -66,7 +66,7 @@ class Header extends Component {
       <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            Apple POS | {this.getBrand()} 
+            Apple POS | {this.getPageTitle()} 
           </Navbar.Brand>
         </Navbar.Header>
         <PosHeaderLinks />

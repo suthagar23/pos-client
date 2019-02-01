@@ -53,14 +53,14 @@ class ItemSearch extends Component {
       ]
     };
     this.handleChange = this.handleChange.bind(this);
-    this.submitForm = this.submitForm.bind(this);
+    this.handleEnterPress = this.handleEnterPress.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this); 
+    this.handleEnterPress = this.handleEnterPress.bind(this);
   }
 
   handleKeyDown(event) {
     const pressedKeyCode = event.keyCode;
     const { dispatch } = this.props;
-    // console.log(pressedKeyCode)
     // Pressed UP key
     if(pressedKeyCode === 38) {
       dispatch({type: 'SUGGESTION_POSITION_UP', payload: -1});
@@ -68,6 +68,10 @@ class ItemSearch extends Component {
     // Pressed Down key
     if(pressedKeyCode === 40) {
       dispatch({type: 'SUGGESTION_POSITION_DOWN', payload: 1});
+    }
+
+    if(pressedKeyCode === 13) {
+      this.handleEnterPress();
     }
   }
 
@@ -97,8 +101,8 @@ class ItemSearch extends Component {
     }));
   } 
 
-  submitForm(e) { 
-    e.preventDefault();
+  handleEnterPress() { 
+    // e.preventDefault();
     let { searchFieldValue } = this.state; 
     const { activeIndex, invoiceItemSuggestions } = this.props.redux.state;
     if (activeIndex > constants.DEFAULT_ACTIVE_INDEX) {
@@ -112,14 +116,14 @@ class ItemSearch extends Component {
           let updateItemListResponse = actions.updateInvoiceItemsList(foundItem, state.invoiceItems);
   
           this.changeValidatorStates(false);
-          document.getElementById('searchFieldValue').value = '';
+          (document.getElementById('searchFieldValue') || {}).value = '';
           this.setState(Object.assign({}, this.state, {
             searchFieldValue: '',
             ValidationIssues: undefined}));
         }
         else {
           this.changeValidatorStates(true);
-          document.getElementById('searchFieldValue').select();
+          (document.getElementById('searchFieldValue') || {}).select();
         } 
 
       }.bind(this));
@@ -151,30 +155,28 @@ class ItemSearch extends Component {
     };
     return (
       <Grid fluid>
-        <form id="itemSearchForm" name="itemSearchForm" className="form" onSubmit={ (e) => this.submitForm(e) }>
-          <Row>
-            <Col md={12}>
-              <FormGroup controlId="searchFieldValue"  validationState={this.getValidationState('searchFieldValue')}>
-                <ControlLabel>Item Code/Item Name</ControlLabel>
-                <FormControl
-                  type="text"
-                  name="searchFieldValue"
-                  value={this.state.value}
-                  placeholder="Type Item Code/Item Name, then Press Enter"
-                  onChange={this.handleChange}
-                  onKeyDown={this.handleKeyDown}
-                  autoComplete="off"
-                />                
-              </FormGroup>
-            </Col>
-            <div className="clearfix" />
-          </Row>
-          <Row style={itemSuggestionStyle}>
-            <Col md={12}>
-              <ItemSuggestion {...this.props} />
-            </Col>
-          </Row>
-        </form>
+        <Row>
+          <Col md={12}>
+            <FormGroup controlId="searchFieldValue"  validationState={this.getValidationState('searchFieldValue')}>
+              <ControlLabel>Item Code/Item Name</ControlLabel>
+              <FormControl
+                type="text"
+                name="searchFieldValue"
+                placeholder="Type Item Code/Item Name, then Press Enter"
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown} 
+                value={this.state.itemSearch}
+                autoComplete="off"
+              />                
+            </FormGroup>
+          </Col>  
+          <div className="clearfix" />
+        </Row>
+        <Row style={itemSuggestionStyle}>
+          <Col md={12}>
+            <ItemSuggestion {...this.props} />
+          </Col>
+        </Row>
       </Grid>
     );
   }

@@ -39,6 +39,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^3.4.0",
     "file-loader": "^3.0.1",
+    "font-awesome": "^4.7.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-cookie": "^3.0.8",

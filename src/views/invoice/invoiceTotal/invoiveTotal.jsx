@@ -6,6 +6,7 @@ import Container from '../../../components/container/container.jsx';
 import * as constants from '../../../utils/constants';
 // import * as constants from './itemSearchConstants';
 
+
 import {calculateTotal} from './invoiceTotalAction';
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    calculateTotal: (invoiceItems, invoiceInfo) => dispatch(calculateTotal(invoiceItems, invoiceInfo))
+    calculateTotal: (invoiceItems, invoiceInfo, props) => dispatch(calculateTotal(invoiceItems, invoiceInfo, props))
   };
 };
 
@@ -39,9 +40,12 @@ class InvoiceTotal extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate() { 
     const {invoiceItems, invoiceInfo} = this.props.redux.state;
-    this.props.redux.actions.calculateTotal(invoiceItems, invoiceInfo);
+    let re = this.props.redux.actions.calculateTotal(invoiceItems, invoiceInfo, this.props);
+    // re.then(function(value) {
+ 
+    // })
   }
 
   render() {

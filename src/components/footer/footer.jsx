@@ -39,7 +39,7 @@ class Footer extends Component {
           </nav>
           <p className="copyright pull-right">
             &copy; {new Date().getFullYear()}{' '}
-            Apple POS created by <a href="">Suthagar</a>,
+            Apple POS,
           </p>
         </Grid>
       </footer>

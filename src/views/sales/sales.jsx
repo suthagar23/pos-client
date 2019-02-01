@@ -8,6 +8,7 @@ import Container from '../../components/container/container.jsx';
 import styles from './style.css';
 import  InvoiceItems from '../invoice/invoiceItems/invoiceItems.jsx';
 import {PATH_SALES, PATH_AUTH} from '../../routes/routesConstants';
+import {checkForLoginStatus} from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
   return { cookies: ownProps.cookies, 
@@ -21,18 +22,8 @@ class Sales extends Component {
     super(); 
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    const { cookies } = this.props;
-    const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
-    if (typeof isLogedIn === 'undefined') {
-      dispatch({type: LOGIN_REQUIRED});
-      this.props.history.push(PATH_AUTH);
-    }
-    else if (typeof userInfo === 'undefined') {
-      dispatch({type: RELOGIN_REQUIRED});
-      this.props.history.push(PATH_AUTH);
-    }
+  componentWillUnmount() {
+ 
   }
 
   render() {

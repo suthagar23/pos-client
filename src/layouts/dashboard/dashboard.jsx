@@ -4,28 +4,22 @@ import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
 import Footer from '../../components/footer/footer.jsx'; 
 import { withCookies } from 'react-cookie'; 
-
 import dashboardRoutes from '../../routes/dashboard.jsx';
+import { connect } from 'react-redux'; 
+import Notifications from '../../components/notification/notification.jsx';
+const mapStateToProps = (state, ownProps) => {
+  return { };
+};
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.mainPanelRef= React.createRef();
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.mainPanelRef= React.createRef(); 
     this.state = { };
   }
-  componentDidMount() {
-    // this.setState({ });
-    // console.log(this.props)
 
-   
-  }
-  componentDidUpdate(e) {
-    
-  }
   render() {
     let styles = {
-      // backgroundColor: 'yellow',
       border: '1.5px solid #777',
       borderRadius: '15px',
       marginTop: '20px',
@@ -33,6 +27,7 @@ class Dashboard extends Component {
     };
     return (
       <div className="wrapper" >
+        <Notifications />
         <div id="main-panel" className="main-panel" ref={this.mainPanelRef} style={styles}>
           <Header {...this.props} />
           <Switch>
@@ -55,4 +50,6 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   cookies : PropTypes.object.isRequired
 };
-export default withCookies(Dashboard);
+
+const DashboardComponent = connect(mapStateToProps)(withCookies(Dashboard));
+export default DashboardComponent;

@@ -5,7 +5,7 @@ import styles from './style.css';
 class Container extends Component {
   render() {
 
-    const ContainerHeadre = () => {
+    const ContainerHeader = () => {
       if (typeof this.props.title !== 'undefined') {
         return (
           <div className={'header' + (this.props.hCenter ? ' text-center' : '')}>
@@ -27,7 +27,7 @@ class Container extends Component {
       <div className={'card ' + (this.props.plain ? ' card-plain' : '') + (this.props.className ? this.props.className : '')} style={this.props.style}>
 
         
-        <ContainerHeadre />
+        <ContainerHeader />
         <div
           className={
             'content ' +  ' content-updated ' +

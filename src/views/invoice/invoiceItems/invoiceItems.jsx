@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {CURRENCY} from '../../../utils/constants';
 import { DeleteAuthCookie, GetAuthCookie } from '../../../utils/authUtils';
+import { findDifferFromToday } from '../../../utils/commonUtils';
+import {checkForLoginStatus} from '../../../utils/authUtils';
 
 const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
 const tdArray = [
@@ -19,7 +21,9 @@ const tdArray = [
 
 
 const mapStateToProps = (state, ownProps) => {
-  return { invoiceItems: state.invoiceItems, cookies: ownProps.cookies, };
+  return { invoiceItems: state.invoiceItems, 
+    cookies: ownProps.cookies,
+    invoiceInfo: state.invoiceInfo };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -43,10 +47,6 @@ class InvoiceItems extends Component {
     super();
   }
 
-  componentDidMount(){
-    console.log(this.props);
-  }
-
   prepareArray() {
     const invoiceItems = this.props.redux.state.invoiceItems;
     let invoiceItemsArray = [];
@@ -59,32 +59,42 @@ class InvoiceItems extends Component {
     return invoiceItemsArray;
   }
 
-  
+  componentDidMount() {
+    checkForLoginStatus(this.props);
+  }
+ 
 
   render() {
-    const { cookies } = this.props;
-    const {userInfo} = GetAuthCookie(cookies) || {};
-    let logedInUserFirstName = 'user';
-    if (typeof userInfo !== 'undefined') {
-      logedInUserFirstName = userInfo.firstName;
-    }
-    // Need to refactor
-    let [date, time] = new Date().toLocaleString('en-US').split(', ');
-    let startedDateTime = date.concat(' ').concat(time);
-    const subTitleInfo = 'Started : '.concat(startedDateTime).concat(' by @').concat(logedInUserFirstName);
-
+    const { redux } = this.props;
+    const {invoiceTitle, invoiceStartedAt, invoiceStartedByName } = redux.state.invoiceInfo;
+    const title = invoiceTitle || 'New Invoice';
+    const subTitle = 'Started : '.concat(invoiceStartedAt);
+    const invoiceTotalItems = Object.keys(this.props.redux.state.invoiceItems || {}).length;
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <Container
-                title="Invoice #1230"
-                subTitle={subTitleInfo}
+              <Container 
                 ctTableFullWidth
                 ctTableResponsive
                 content={
                   <div>
+                    <Row>
+                      <Col md={12}>
+                        <div className='invoice-header'>
+                          <h3 className="sub-tile"> {title}</h3> 
+                          <Row>
+                            <Col md={6}>
+                              <p className="sub-tile"><i className="fa  fa-clock-o"></i> {subTitle} </p>
+                            </Col>
+                            <Col md={6} style={{textAlign:'right'}}>
+                              <p className="sub-tile"><i className="fa  fa-shopping-cart"></i> Total Items : {this.props.redux.state.invoiceInfo.invoiceTotalQuantity} qty from {invoiceTotalItems} items.</p>
+                            </Col>
+                          </Row>
+                        </div>
+                      </Col>
+                    </Row>
                     <ItemSearch {...this.props}/>
                     <Table striped hover>
                
@@ -120,7 +130,7 @@ class InvoiceItems extends Component {
                       </tbody> 
                     </Table>
 
-                    <InvoiceTotal />
+                    <InvoiceTotal {...this.props}/>
                   </div>
                 }
               />
@@ -140,6 +150,10 @@ InvoiceItems.propTypes = {
     state: PropTypes.object.isRequired,
     state: PropTypes.shape({
       invoiceItems: PropTypes.object.isRequired,
+      invoiceInfo: PropTypes.object.isRequired,
+      invoiceInfo: PropTypes.shape({
+        invoiceTotalQuantity: PropTypes.number,
+      })
     })
   })
 };

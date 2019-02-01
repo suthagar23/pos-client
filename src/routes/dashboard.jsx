@@ -3,6 +3,7 @@ import Sales from '../views/sales/sales.jsx';
 import NotFound from '../views/notfound/notfound.jsx';
 import Login from '../views/login/loginView.jsx';
 import Logout from '../views/logout/logout.jsx';
+import OrderList from '../views/orderList/orderList.jsx';
 import * as constants from './routesConstants';
 
 const dashboardRoutes = [
@@ -23,6 +24,12 @@ const dashboardRoutes = [
     name: 'Sales',
     icon: 'pe-7s-graph',
     component: Sales
+  },
+  {
+    path: constants.PATH_ORDER_LIST,
+    name: 'Order List',
+    icon: 'pe-7s-graph',
+    component: OrderList
   },
   {
     path: constants.PATH_404,

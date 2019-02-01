@@ -8,6 +8,7 @@ import indexRoutes from './routes/index.jsx';
 import { CookiesProvider } from 'react-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/light-bootstrap.css?v=1.3.0';
+import 'font-awesome/css/font-awesome.min.css';
 
 render(
   <Provider store={store}>
