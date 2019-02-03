@@ -89,7 +89,7 @@ class InvoiceItems extends Component {
                               <p className="sub-tile"><i className="fa  fa-clock-o"></i> {subTitle} </p>
                             </Col>
                             <Col md={6} style={{textAlign:'right'}}>
-                              <p className="sub-tile"><i className="fa  fa-shopping-cart"></i> Total Items : {this.props.redux.state.invoiceInfo.invoiceTotalQuantity} qty from {invoiceTotalItems} items.</p>
+                              <p className="sub-tile"><i className="fa  fa-shopping-cart"></i> Total Items : {this.props.redux.state.invoiceInfo.invoiceTotalQuantity} quantity from {invoiceTotalItems} items.</p>
                             </Col>
                           </Row>
                         </div>

@@ -12,6 +12,7 @@ const INITAL_STATE =  {
   invoiceNetAmount: 0,
   invoiceTotalQuantity: 0,
   invoiceStatus: 'NEW_ORDER',
+  invoiceFocusedItem_id : '',
 };
 
 export default (state = INITAL_STATE, action) => {
