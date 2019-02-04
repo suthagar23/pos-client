@@ -15,7 +15,7 @@ export function saveSalesInvoice(invoiceItems, invoiceInfo) {
     orderDiscount: invoiceInfo.discount,
     orderNetAmount: invoiceInfo.netAmount,
     orderStatus: invoiceInfo.invoiceStatus,
-    orderStaredDate: invoiceInfo.invoiceStartedAt,
+    orderStartedDate: invoiceInfo.invoiceStartedAt,
     orderItems : invoiceItemList
   };
 

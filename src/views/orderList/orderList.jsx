@@ -45,12 +45,12 @@ class OrderList extends Component {
   componentDidMount() {
     checkForLoginStatus(this.props);
     this.props.redux.actions.findNewOrders();
+
   }
 
   render() {
     const { orderLists } = this.props.redux.state;
     let orderListTitle = 'Active Orders';
-
     if (orderLists.length < 1) {
       orderListTitle = 'No active orders.';
     }
@@ -74,7 +74,7 @@ class OrderList extends Component {
                       return <OrderShortView {...this.props} key={key} netAmount={prop.orderNetAmount} 
                         invoiceId={prop._id} 
                         discountAmount={prop.orderDiscount} 
-                        createdAt={ formatDateTime(prop.orderStaredDate)}
+                        createdAt={ formatDateTime(prop.orderStartedDate)}
                         modifitedAt={ formatDateTime(prop.lastModifiedAt)}/>;
                         
                     })}</div>
