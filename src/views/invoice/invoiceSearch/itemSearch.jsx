@@ -63,6 +63,11 @@ class ItemSearch extends Component {
     this.handleQuantityFieldEnterPress = this.handleQuantityFieldEnterPress.bind(this);
     this.handleQuantiyFieldChange = this.handleQuantiyFieldChange.bind(this);
     this.validateQuantityKeyPress = this.validateQuantityKeyPress.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick(event) {
+    (document.getElementById('searchFieldValue') || {}).select();
   }
 
   handleKeyDown(event) {
@@ -266,6 +271,7 @@ class ItemSearch extends Component {
                 placeholder="Type Item Code/Item Name, then Press Enter"
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown} 
+                onClick={this.handleOnClick}
                 value={this.state.itemSearch}
                 autoComplete="off"
               />                

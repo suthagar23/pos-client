@@ -20,6 +20,11 @@ export default (state = INITAL_STATE, action) => {
     return action.payload;
   }
 
+  if (action.type === 'REMOVE_UPDATED_LIST') {
+    const { [action.payload]:removedItem, ...otherItems} = state;
+    return otherItems;
+  }
+
   if (action.type === constants.RESET_INVOICE_ITEMS) {
     const {sampleItemId: sampleInitialItem, ...remainnitialIState} = INITAL_STATE;
     return remainnitialIState;

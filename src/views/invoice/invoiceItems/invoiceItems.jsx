@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl, Alert } from 'react-bootstrap';
+import { Grid, Row, Col, Table, FormGroup, ControlLabel, FormControl, Alert, Button } from 'react-bootstrap';
 import ItemSearch from '../invoiceSearch/itemSearch.jsx'; 
 import InvoiceTotal from '../invoiceTotal/invoiveTotal.jsx';
 import styles from './style.css';
@@ -10,15 +10,9 @@ import {CURRENCY} from '../../../utils/constants';
 import { DeleteAuthCookie, GetAuthCookie } from '../../../utils/authUtils';
 import { findDifferFromToday } from '../../../utils/commonUtils';
 import {checkForLoginStatus} from '../../../utils/authUtils';
+// import Button from '../../../components/customButton/customButton.jsx';
 
 const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
-const tdArray = [
-  ['Dakota Rice', '$7', 2, '$14'],
-  ['Minerva Hooper', '$2', 1, '$2'],
-  ['Sage Rodriguez', '$5', 3, '$15'],
-  ['Dakota Rice', '$7', 2, '$14'], 
-];
-
 
 const mapStateToProps = (state, ownProps) => {
   return { invoiceItems: state.invoiceItems, 
@@ -45,6 +39,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 class InvoiceItems extends Component {
   constructor() {
     super();
+    this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
 
   prepareArray() {
@@ -53,7 +48,7 @@ class InvoiceItems extends Component {
     for (var itemId in invoiceItems) {
       if (invoiceItems.hasOwnProperty(itemId)) {
         const item = invoiceItems[itemId];
-        invoiceItemsArray = [...invoiceItemsArray, [item.itemCode, item.itemName, item.unitPrice, item.quantity, item.amount]];
+        invoiceItemsArray = [...invoiceItemsArray, [item.itemCode, item.itemName, item.unitPrice, item.quantity, item.amount, item._id]];
       }
     }
     return invoiceItemsArray;
@@ -63,6 +58,10 @@ class InvoiceItems extends Component {
     checkForLoginStatus(this.props);
   }
  
+  handleRemoveClick(itemId) {
+    const { dispatch } = this.props;
+    dispatch({type : 'REMOVE_UPDATED_LIST', payload: itemId});
+  }
 
   render() {
     const { redux } = this.props;
@@ -107,22 +106,30 @@ class InvoiceItems extends Component {
                             }
                             return <th className={textRight + ' col' + prop} key={key}>{prop}</th>;
                           })}
+                          <th className='colItemAction text-right'> Action </th>
                         </tr>
                       </thead>
                      
                       <tbody style={{display : 'block', maxHeight:'300px', overflowY: 'scroll'}}>
-                        {this.prepareArray().map((prop, key) => {
+                        {this.prepareArray().map((item, key) => {
                          
                           return (
                             <tr key={key} style={{ width: '100%', display: 'table'}}>
-                              {prop.map((prop, key) => {
+                              {item.map((prop, key) => {
                                 // let currencySymbol = CURRENCY;
                                 let textRight = (key !== 0 && key !== 1) ? textRight = 'text-right' : textRight = '';
                                 let currencySymbol = (key ===2 || key === 4) ? currencySymbol = CURRENCY : currencySymbol = '';
 
-                               
-                               
-                                return <td className={textRight + ' col' + thArray[key]} key={key}>{currencySymbol} {prop}</td>;
+                                let returnDiv;
+                                if (key !== 5) {
+                                  returnDiv = <td className={textRight + ' col' + thArray[key]} key={key}>{currencySymbol} {prop}</td>;
+                                }
+                                else {
+                                  returnDiv = (<td className={textRight + ' colItemAction'} key={key}>
+                                    <Button bsStyle="danger" style={{ border: '0px', float: 'right'}} onClick={() => this.handleRemoveClick(prop)}> <i className="fa  fa-ban"></i> Remove </Button> 
+                                  </td>);
+                                }
+                                return returnDiv;
                               })}
                             </tr>
                           );
@@ -154,8 +161,9 @@ InvoiceItems.propTypes = {
       invoiceInfo: PropTypes.shape({
         invoiceTotalQuantity: PropTypes.number,
       })
-    })
-  })
+    }),
+  }),
+  dispatch: PropTypes.func.isRequired,
 };
 
 // export default InvoiceItems;
