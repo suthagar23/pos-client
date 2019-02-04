@@ -1,0 +1,2 @@
+export const UPDATE_NEW_ORDERS = 'UPDATE_NEW_ORDERS';
+export const RESET_ORDER_LIST = 'RESET_ORDER_LIST';

@@ -27,7 +27,7 @@ export default (state = INITAL_STATE, action) => {
     });
   }
   
-  if (action.type === 'UPDATE_INVOICE_INFO') {
+  if (action.type === constants.UPDATE_INVOICE_INFO) {
     return Object.assign({}, state, {
       ...state,
       ...action.payload

@@ -1,7 +1,6 @@
 
 import * as constants from './invoiceItemsConstants';
-import { fetchGet } from '../../../utils/restMethods';
-
+import { UPDATE_INVOICE_INFO } from '../invoiceTotal/invoiceTotalConstants';
 
 export function updateInvoiceItemsList(newItemObject, invoiceItems) {
   return (dispatch) => { 
@@ -23,7 +22,7 @@ export function updateInvoiceItemsList(newItemObject, invoiceItems) {
       }
     }, OtherInvoiceItems);
     dispatch ({ type: constants.ADD_UPDATED_LIST, payload: updatedInvoiceItems });
-    dispatch({type: 'UPDATE_INVOICE_INFO', payload: {invoiceFocusedItem_id: newObjectItemId}});
+    dispatch({type: UPDATE_INVOICE_INFO, payload: {invoiceFocusedItem_id: newObjectItemId}});
     return updatedInvoiceItems;
   };
 };

@@ -1,4 +1,4 @@
-// import * as constants from './invoiceTotalConstants';
+import * as constants from './notificationConstants';
 
 const INITAL_STATE =  [
   {
@@ -12,16 +12,16 @@ const INITAL_STATE =  [
 
 export default (state = INITAL_STATE, action) => {
 
-  if (action.type === 'ADD_NOTIFICATION') {
+  if (action.type === constants.ADD_NOTIFICATION) {
     return [...state, action.payload];
   }
 
-  if (action.type === 'REMOVE_NOTIFICATION') {
+  if (action.type === constants.REMOVE_NOTIFICATION) {
     const filteredItems = state.filter(state => state.notificationId !== action.payload);
     return [...filteredItems];
   }
 
-  if (action.type === 'RESET_NOTIFICATION') {
+  if (action.type === constants.RESET_NOTIFICATION) {
     return INITAL_STATE;
   }
 

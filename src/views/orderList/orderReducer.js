@@ -10,11 +10,11 @@ const INITAL_STATE =   [{
 
 export default (state = INITAL_STATE, action) => {
  
-  if (action.type === 'UPDATE_NEW_ORDERS') {
+  if (action.type === constants.UPDATE_NEW_ORDERS) {
     return action.payload.result;
   }
 
-  if (action.type === 'RESET_ORDER_LIST') {
+  if (action.type === constants.RESET_ORDER_LIST) {
     return [];
   }
   return state.filter(state => state._id !== undefined);

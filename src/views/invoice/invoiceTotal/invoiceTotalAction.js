@@ -2,6 +2,7 @@ import {DISCOUNT} from '../../../utils/constants';
 import { saveSalesInvoice } from '../../sales/salesAction';
 import { checkForLoginStatus } from '../../../utils/authUtils';
 import { errorNotification, successNotification } from '../../../components/notification/notificationAction';
+import * as constants from './invoiceTotalConstants';
 
 export function calculateTotal(invoiceItems, invoiceInfo, props) {
   return (dispatch) => { 
@@ -35,14 +36,14 @@ export function calculateTotal(invoiceItems, invoiceInfo, props) {
   
         savedOrderObject.then(function(object) {
           if (object) {
-            dispatch ({ type: 'UPDATE_INVOICE_INFO', payload: {invoiceId: object._id, invoiceTitle: 'Invoice #'.concat( object._id)}});
+            dispatch ({ type: constants.UPDATE_INVOICE_INFO, payload: {invoiceId: object._id, invoiceTitle: 'Invoice #'.concat( object._id)}});
           }
           else {
-            errorNotification('Failed to save order details.');
+            errorNotification(constants.ORDER_SAVE_FAILED_MESSAGE);
           }
         });
 
-        dispatch ({ type: 'UPDATE_GROSSAMOUNT', payload: updatedInvoiceInfo });
+        dispatch ({ type: constants.UPDATE_GROSSAMOUNT, payload: updatedInvoiceInfo });
 
       }
     

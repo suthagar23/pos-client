@@ -7,7 +7,7 @@ import { FindItemByItemCode, searchForSuggestions } from '../invoiceSearch/invoi
 import { fetchGet } from '../../../utils/restMethods';
 import Container from '../../../components/container/container.jsx';
 import ItemSuggestion from '../../../components/itemSuggestion/itemSuggestion.jsx';
-import * as constants from '../invoiceSearch/invoiceSearchConstants';
+import * as constants from './invoiceSearchConstants';
 import { errorNotification } from '../../../components/notification/notificationAction';
 
 const thArray = ['Item Name', 'Price', 'Qty', 'Amount'];
@@ -75,11 +75,11 @@ class ItemSearch extends Component {
     const { dispatch } = this.props;
     // Pressed UP key
     if(pressedKeyCode === 38) {
-      dispatch({type: 'SUGGESTION_POSITION_UP', payload: -1});
+      dispatch({type: constants.SUGGESTION_POSITION_UP, payload: -1});
     }
     // Pressed Down key
     if(pressedKeyCode === 40) {
-      dispatch({type: 'SUGGESTION_POSITION_DOWN', payload: 1});
+      dispatch({type: constants.SUGGESTION_POSITION_DOWN, payload: 1});
     }
 
     if(pressedKeyCode === 13) {
@@ -157,7 +157,7 @@ class ItemSearch extends Component {
       }
     }));
     (document.getElementById('quantityValue') || {}).select();
-    errorNotification('Quantity can\'t be less than one');
+    errorNotification(constants.QUANTIY_LESS_THAN_ONE_ERROR);
   }
 
   handleQuantiyFieldChange(event) {
@@ -185,7 +185,7 @@ class ItemSearch extends Component {
     }
     else {
       const { dispatch } = this.props;
-      dispatch({type: 'REMOVE_ALL_ITEM_SUGGESTIONS', payload: []});
+      dispatch({type: constants.REMOVE_ALL_ITEM_SUGGESTIONS, payload: []});
     }
   }
 
@@ -240,7 +240,7 @@ class ItemSearch extends Component {
     }
     
     const { dispatch } = this.props;
-    dispatch({type: 'REMOVE_ALL_ITEM_SUGGESTIONS', payload: []});
+    dispatch({type: constants.REMOVE_ALL_ITEM_SUGGESTIONS, payload: []});
   }
 
   getValidationState(fieldName) {

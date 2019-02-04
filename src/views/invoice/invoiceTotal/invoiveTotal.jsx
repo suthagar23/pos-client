@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Container from '../../../components/container/container.jsx';
 import * as constants from '../../../utils/constants';
-// import * as constants from './itemSearchConstants';
 
 
 import {calculateTotal} from './invoiceTotalAction';
@@ -43,9 +42,6 @@ class InvoiceTotal extends Component {
   componentDidUpdate() { 
     const {invoiceItems, invoiceInfo} = this.props.redux.state;
     let re = this.props.redux.actions.calculateTotal(invoiceItems, invoiceInfo, this.props);
-    // re.then(function(value) {
- 
-    // })
   }
 
   render() {

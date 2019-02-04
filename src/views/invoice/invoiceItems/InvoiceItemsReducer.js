@@ -20,7 +20,7 @@ export default (state = INITAL_STATE, action) => {
     return action.payload;
   }
 
-  if (action.type === 'REMOVE_UPDATED_LIST') {
+  if (action.type === constants.REMOVE_UPDATED_LIST) {
     const { [action.payload]:removedItem, ...otherItems} = state;
     return otherItems;
   }

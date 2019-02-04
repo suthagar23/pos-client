@@ -6,10 +6,10 @@ export function findNewOrders() {
     let restResponse = fetchGet('/order/status', 'NEW_ORDER');
     return restResponse.then(function(response, error){
       if(response) {
-        dispatch({type: 'UPDATE_NEW_ORDERS', payload: response});
+        dispatch({type: constants.UPDATE_NEW_ORDERS, payload: response});
       }
       else {
-        dispatch({type: 'RESET_ORDER_LIST', payload: error});
+        dispatch({type: constants.RESET_ORDER_LIST, payload: error});
       }
     });
   };

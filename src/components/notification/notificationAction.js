@@ -1,5 +1,6 @@
 
 import store from '../../store/index';
+import * as constants from './notificationConstants';
 
 export function addNotification(type, message) {
   if (type.toLowerCase() in ['danger, success', 'info']) {
@@ -12,9 +13,9 @@ export function addNotification(type, message) {
     notificationCloseButton: true,
     notificationDisplayed: false,
   };
-  store.dispatch({type: 'ADD_NOTIFICATION', payload: notification});
+  store.dispatch({type: constants.ADD_NOTIFICATION, payload: notification});
   setTimeout(() => 
-    store.dispatch({type: 'REMOVE_NOTIFICATION', payload: notification.notificationId}), 4000);
+    store.dispatch({type: constants.REMOVE_NOTIFICATION, payload: notification.notificationId}), 4000);
   return notification;
 }
 
@@ -28,6 +29,6 @@ export function successNotification(message) {
 
 export function removeNotification(notificationId) {
   return (dispatch) => { 
-    dispatch({type: 'REMOVE_NOTIFICATION', payload: notificationId});
+    dispatch({type: constants.REMOVE_NOTIFICATION, payload: notificationId});
   };
 }

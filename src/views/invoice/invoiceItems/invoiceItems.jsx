@@ -10,7 +10,7 @@ import {CURRENCY} from '../../../utils/constants';
 import { DeleteAuthCookie, GetAuthCookie } from '../../../utils/authUtils';
 import { findDifferFromToday } from '../../../utils/commonUtils';
 import {checkForLoginStatus} from '../../../utils/authUtils';
-// import Button from '../../../components/customButton/customButton.jsx';
+import * as constants from './invoiceItemsConstants';
 
 const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
 
@@ -60,7 +60,7 @@ class InvoiceItems extends Component {
  
   handleRemoveClick(itemId) {
     const { dispatch } = this.props;
-    dispatch({type : 'REMOVE_UPDATED_LIST', payload: itemId});
+    dispatch({type : constants.REMOVE_UPDATED_LIST, payload: itemId});
   }
 
   render() {
