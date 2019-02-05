@@ -288,6 +288,7 @@ class ItemSearch extends Component {
                 onKeyDown={this.handleQuantityFieldKeyDown}
                 value={this.state.itemQty}
                 onKeyPress={this.validateQuantityKeyPress}
+                onClick={() => this.select()}
                 defaultValue={1}
                 autoComplete="off"
               />                

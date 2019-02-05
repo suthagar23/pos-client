@@ -42,6 +42,7 @@ class InvoiceItems extends Component {
   constructor() {
     super();
     this.handleRemoveClick = this.handleRemoveClick.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   prepareArray() {
@@ -75,6 +76,17 @@ class InvoiceItems extends Component {
       }.bind(this));
     }
 
+  }
+
+  handleRowClick(selectedItem) {
+    const itemId = selectedItem[5];
+    if(typeof itemId !== 'undefined') {
+      (document.getElementById('searchFieldValue') || {}).value = selectedItem[1];
+      (document.getElementById('quantityValue') || {}).value = selectedItem[3];
+      const {dispatch} = this.props;
+      dispatch({type:'UPDATE_INVOICE_INFO', payload: {invoiceFocusedItem_id: itemId}});
+      (document.getElementById('quantityValue') || {}).select();
+    }
   }
 
   handleRemoveClick(itemId) {
@@ -133,7 +145,7 @@ class InvoiceItems extends Component {
                         {this.prepareArray().map((item, key) => {
                          
                           return (
-                            <tr key={key} style={{ width: '100%', display: 'table'}}>
+                            <tr key={key} style={{ width: '100%', display: 'table'}} onClick={() => this.handleRowClick(item)}>
                               {item.map((prop, key) => {
                                 // let currencySymbol = CURRENCY;
                                 let textRight = (key !== 0 && key !== 1) ? textRight = 'text-right' : textRight = '';
