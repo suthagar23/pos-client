@@ -11,7 +11,7 @@ import {PATH_SALES, PATH_AUTH} from '../../routes/routesConstants';
 import {checkForLoginStatus} from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
-  return { cookies: ownProps.cookies, 
+  return { 
     currentURL: ownProps.location.pathname,
     auth : state.auth, };
 };
@@ -37,7 +37,6 @@ class Sales extends Component {
 }
 
 Sales.propTypes = {
-  cookies : PropTypes.object.isRequired,
   history : PropTypes.object.isRequired,
   dispatch : PropTypes.func.isRequired,
 };

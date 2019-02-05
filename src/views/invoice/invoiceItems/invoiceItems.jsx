@@ -16,7 +16,6 @@ const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
 
 const mapStateToProps = (state, ownProps) => {
   return { invoiceItems: state.invoiceItems, 
-    cookies: ownProps.cookies,
     invoiceInfo: state.invoiceInfo };
 };
 
@@ -151,7 +150,6 @@ class InvoiceItems extends Component {
 }
 
 InvoiceItems.propTypes = {
-  cookies : PropTypes.object.isRequired,
   redux: PropTypes.object.isRequired,
   redux: PropTypes.shape({
     state: PropTypes.object.isRequired,

@@ -3,6 +3,7 @@ import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';  
 import { formatDateTime } from '../../utils/commonUtils';
 import PropTypes from 'prop-types';
+import { DeleteAuthCookie } from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
   return {auth: state.auth, };
@@ -34,22 +35,18 @@ class HeaderLinks extends Component {
     }});
   }
 
+  handleLogOut() {
+    DeleteAuthCookie();
+  }
+
   render() { 
     return (
       <div>
         <Nav pullRight>
           <NavItem eventKey={1} href="#/orderlist">Active Orders</NavItem>
           <NavItem eventKey={1} onClick={this.handleNewSalesClick} href="#/sales">New Invoice</NavItem>
-          <NavDropdown
-            eventKey={2}
-            title="Profile"
-            id="basic-nav-dropdown-right">
-            <MenuItem eventKey={2.1}>User Profile</MenuItem>
-            <MenuItem eventKey={2.2}>Settings</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={2.5}>Log out</MenuItem>
-          </NavDropdown>
-          <NavItem eventKey={3} href="#/logout">
+
+          <NavItem eventKey={3} onClick={this.handleLogOut} href="#/logout">
             Log out
           </NavItem>
         </Nav>

@@ -16,7 +16,7 @@ import { formatDateTime } from '../../utils/commonUtils';
 import {checkForLoginStatus} from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
-  return { cookies: ownProps.cookies, 
+  return { 
     auth : state.auth,
     orderLists: state.orderLists };
 };
@@ -45,7 +45,6 @@ class OrderList extends Component {
   componentDidMount() {
     checkForLoginStatus(this.props);
     this.props.redux.actions.findNewOrders();
-
   }
 
   render() {
@@ -90,7 +89,6 @@ class OrderList extends Component {
 }
 
 OrderList.propTypes = {
-  cookies : PropTypes.object.isRequired,
   redux: PropTypes.object.isRequired,
   redux: PropTypes.shape({
     state: PropTypes.object.isRequired,

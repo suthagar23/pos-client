@@ -6,7 +6,7 @@ import styles from './style.css';
 import {removeNotification} from './notificationAction';
 
 const mapStateToProps = (state, ownProps) => {
-  return {cookies: ownProps.cookies,
+  return {
     notificationList: state.notifications };
 };
 

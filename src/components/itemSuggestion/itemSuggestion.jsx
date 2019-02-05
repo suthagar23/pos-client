@@ -8,7 +8,7 @@ import Card from '../container/container.jsx';
 const thArray = ['ItemCode', 'Name', 'Description', 'UnitPrice'];
 
 const mapStateToProps = (state, ownProps) => {
-  return {cookies: ownProps.cookies, 
+  return {
     invoiceItemSuggestions: state.invoiceItemSuggestions.suggestions,
     activeIndex: state.invoiceItemSuggestions.activeIndex };
 };
@@ -95,7 +95,6 @@ class ItemSuggestion extends Component {
 }
 
 ItemSuggestion.propTypes = {
-  cookies : PropTypes.object.isRequired,
   redux: PropTypes.object.isRequired,
   redux: PropTypes.shape({
     state: PropTypes.object.isRequired,

@@ -12,12 +12,12 @@ import { DeleteAuthCookie, GetAuthCookie } from '../../utils/authUtils';
 import {PATH_SALES, PATH_AUTH} from '../../routes/routesConstants';
 
 const mapStateToProps = (state, ownProps) => {
-  return { auth: state.auth, cookies: ownProps.cookies, };
+  return { auth: state.auth };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticateUser: (userLoginData, cookies) => dispatch(authenticateUser(userLoginData, cookies)),
+    authenticateUser: (userLoginData) => dispatch(authenticateUser(userLoginData)),
     validateUserLoginForm: userLoginData => dispatch(validateUserLoginForm(userLoginData))
   };
 };
@@ -45,13 +45,13 @@ class Login extends Component {
   }
   
   componentDidMount() {  
-    const { cookies, history } = this.props;
-    const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
+    const { history } = this.props;
+    const {isLogedIn, userInfo} = GetAuthCookie() || {};
     if (typeof isLogedIn !== 'undefined' && typeof userInfo !== 'undefined') {
       history.push(PATH_SALES);
     }
     else {
-      DeleteAuthCookie(cookies);
+      DeleteAuthCookie();
     }
   }
  
@@ -74,7 +74,7 @@ class Login extends Component {
 
   submitForm(e) {
     e.preventDefault();
-    const { cookies, redux } = this.props;this.setState(Object.assign({}, this.state, {
+    const { redux } = this.props;this.setState(Object.assign({}, this.state, {
       ...this.state,
       ValidationIssues: {
         searchFieldValue: true
@@ -86,7 +86,7 @@ class Login extends Component {
       switch (validated.type) {
       case constants.AUTHENTICATE:
         this.ChangeValidatorStates(false, false);
-        this.props.redux.actions.authenticateUser(resBody, cookies);
+        this.props.redux.actions.authenticateUser(resBody);
       case constants.USERNAME_PASSWORD_REQUIRED || constants.LOGIN_REQUIRED:
         this.ChangeValidatorStates(true, true);
       case constants.USERNAME_REQUIRED:
@@ -207,7 +207,6 @@ Login.propTypes = {
       })
     })
   }),
-  cookies : PropTypes.object.isRequired,
   history : PropTypes.object.isRequired,
 };
 

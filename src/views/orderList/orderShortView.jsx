@@ -12,7 +12,8 @@ import { errorNotification, successNotification } from '../../components/notific
 import { findDifferFromToday } from '../../utils/commonUtils';
 
 const mapStateToProps = (state, ownProps) => {
-  return {cookies: ownProps.cookies, };
+  return {
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
