@@ -24,9 +24,9 @@ export function authenticateUser(payload, cookies) {
       .then((res) => {
         const resStatusCode = (res || {}).status;
         if (resStatusCode === 200) {
-          const { result: userInfo } = res;
+          const { result: userInfo, token } = res;
           if (userInfo) {
-            CreateAuthCookie(cookies, { isLogedIn : true, userInfo: userInfo });
+            CreateAuthCookie(cookies, { isLogedIn : true, userInfo: userInfo, authToken: token });
             dispatch({ type: constants.AUTHENTICATEION_SUCCESS, payload: res });
           }
           else {

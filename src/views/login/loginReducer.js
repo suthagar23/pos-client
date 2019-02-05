@@ -33,6 +33,7 @@ const prepareNextState = (state, valuedResponse, type, statusCode, message) => {
     },
     [nullValuedResponse]: undefined,
     user: undefined,
+    token: undefined,
   });
 };
 
@@ -47,6 +48,7 @@ export default (state = INITAL_STATE, action) => {
       ...newState,
       logedIn: true,
       user: action.payload.result,
+      token: action.payload.token,
     });
   }
 
