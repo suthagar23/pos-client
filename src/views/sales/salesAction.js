@@ -1,12 +1,12 @@
 import { fetchPost } from '../../utils/restMethods';
-import { errorNotification, successNotification } from '../../components/notification/notificationAction';
+import { errorNotification, infoNotification } from '../../components/notification/notificationAction';
 
 export function saveSalesInvoice(invoiceItems, invoiceInfo) {
   // const { invoiceInfo, invoiceItems } = reduxState;
 
   let invoiceItemList = [];
-
-  Object.keys(invoiceItems).forEach(function(key) {
+  const invoiceItemKeys = Object.keys(invoiceItems);
+  invoiceItemKeys.forEach(function(key) {
     invoiceItemList = [...invoiceItemList, invoiceItems[key]];
   });
  
@@ -21,8 +21,10 @@ export function saveSalesInvoice(invoiceItems, invoiceInfo) {
 
   if (invoiceInfo.invoiceId !== undefined) {
     OrderObject.orderId =invoiceInfo.invoiceId;
+    if (invoiceItemKeys.length < 1) {
+      OrderObject.orderStatus = 'CANCELLED_ORDER';
+    }
   }
-
 
   return fetchPost('/order', OrderObject)
     .then((res) => {

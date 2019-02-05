@@ -11,6 +11,9 @@ import { DeleteAuthCookie, GetAuthCookie } from '../../../utils/authUtils';
 import { findDifferFromToday } from '../../../utils/commonUtils';
 import {checkForLoginStatus} from '../../../utils/authUtils';
 import * as constants from './invoiceItemsConstants';
+import { findNewOrders } from '../../orderList/orderAction';
+import { saveSalesInvoice } from '../../sales/salesAction';
+import { errorNotification, infoNotification } from '../../../components/notification/notificationAction';
 
 const thArray = ['ItemCode', 'ItemName', 'Price', 'Qty', 'Amount'];
 
@@ -57,6 +60,23 @@ class InvoiceItems extends Component {
     checkForLoginStatus(this.props);
   }
  
+  componentWillUnmount() {
+
+    const thisInvoiceId = this.props.redux.state.invoiceInfo.invoiceId;
+    if (typeof thisInvoiceId !== 'undefined' && Object.keys(this.props.redux.state.invoiceItems).length < 1 ) {
+      let voidedOrder = saveSalesInvoice({}, {invoiceId: thisInvoiceId, invoiceStatus: 'CANCELLED_ORDER'});
+      voidedOrder.then(function(response, error) {
+        if(!error) {
+          infoNotification('Your order has been cancelled. (#' + (thisInvoiceId || '') + ')');
+        }
+        else {
+          errorNotification('Failed to cancel this order');
+        }
+      }.bind(this));
+    }
+
+  }
+
   handleRemoveClick(itemId) {
     const { dispatch } = this.props;
     dispatch({type : constants.REMOVE_UPDATED_LIST, payload: itemId});

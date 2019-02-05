@@ -27,6 +27,11 @@ export function successNotification(message) {
   return addNotification('success', message);
 }
 
+
+export function infoNotification(message) {
+  return addNotification('info', message);
+}
+
 export function removeNotification(notificationId) {
   return (dispatch) => { 
     dispatch({type: constants.REMOVE_NOTIFICATION, payload: notificationId});
