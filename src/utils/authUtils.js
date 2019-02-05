@@ -62,3 +62,11 @@ export function checkForLoginStatus(props) {
     return true;
   }
 }
+
+export function getAuthToken() {
+  const { authToken } = GetAuthCookie() || {};
+  if (typeof authToken !== undefined ) {
+    return authToken;
+  }
+  return '';
+}
