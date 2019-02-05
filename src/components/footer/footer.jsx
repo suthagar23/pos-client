@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import { GetAuthCookie } from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
-  return { auth: state.auth, cookies: ownProps.cookies };
+  return { auth: state.auth, 
+  };
 };
 
 class Footer extends Component {
   render() {
 
     const PosFooterAPIDocsLinks = () => {
-      const { cookies } = this.props;
-      const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
+      const {isLogedIn, userInfo} = GetAuthCookie() || {};
       if (typeof isLogedIn !== 'undefined' && typeof userInfo !== 'undefined') {
         return (
           <li>
@@ -49,7 +49,6 @@ class Footer extends Component {
 
 
 Footer.propTypes = {
-  cookies : PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   auth: PropTypes.shape({
     logedIn: PropTypes.bool.isRequired

@@ -3,22 +3,23 @@ import { fetchPost } from './restMethods';
 import * as constants from '../views/login/loginConstants';
 import {LOGIN_REQUIRED, RELOGIN_REQUIRED} from '../views/login/loginConstants';
 import {PATH_SALES, PATH_AUTH} from '../routes/routesConstants';
+import Cookies from 'js-cookie';
 
-export const CreateAuthCookie = (cookies, object) => {
-  cookies.set(COOKIE_AUTH, object, { path: '/', maxAge: 1500 });
-  return cookies.get(COOKIE_AUTH);
+export const CreateAuthCookie = (object) => {
+  Cookies.set(COOKIE_AUTH, object, { path: '/', expires: 10 });
+  return Cookies.getJSON(COOKIE_AUTH);
 };
 
-export const DeleteAuthCookie = (cookies) => {
-  cookies.remove(COOKIE_AUTH);
+export const DeleteAuthCookie = () => {
+  Cookies.remove(COOKIE_AUTH);
 };
 
-export const GetAuthCookie = (cookies) => {
-  return cookies.get(COOKIE_AUTH);
+export const GetAuthCookie = () => {
+  return Cookies.getJSON(COOKIE_AUTH);
 };
 
 
-export function authenticateUser(payload, cookies) {
+export function authenticateUser(payload) {
   return (dispatch) => {
     return fetchPost('/auth', payload)
       .then((res) => {
@@ -26,12 +27,12 @@ export function authenticateUser(payload, cookies) {
         if (resStatusCode === 200) {
           const { result: userInfo, token } = res;
           if (userInfo) {
-            CreateAuthCookie(cookies, { isLogedIn : true, userInfo: userInfo, authToken: token });
+            CreateAuthCookie({ isLogedIn : true, userInfo: userInfo, authToken: token });
             dispatch({ type: constants.AUTHENTICATEION_SUCCESS, payload: res });
           }
           else {
             // if auth object doesn't contain user object
-            DeleteAuthCookie(cookies);
+            DeleteAuthCookie();
             dispatch({ type: constants.AUTHENTICATEION_RESPONSE_ERROR, payload: res });
           }
         } else {
@@ -46,8 +47,7 @@ export function authenticateUser(payload, cookies) {
 
 export function checkForLoginStatus(props) {
   const { dispatch } = props;
-  const { cookies } = props;
-  const {isLogedIn, userInfo} = GetAuthCookie(cookies) || {};
+  const {isLogedIn, userInfo} = GetAuthCookie() || {};
   if (typeof isLogedIn === 'undefined') {
     dispatch({type: LOGIN_REQUIRED});
     props.history.push(PATH_AUTH);

@@ -11,7 +11,7 @@ import {calculateTotal} from './invoiceTotalAction';
 const mapStateToProps = (state, ownProps) => {
   return { invoiceItems: state.invoiceItems,
     invoiceInfo : state.invoiceInfo,
-    cookies: ownProps.cookies, };
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -60,7 +60,6 @@ class InvoiceTotal extends Component {
 }
 
 InvoiceTotal.propTypes = {
-  cookies : PropTypes.object,
   redux: PropTypes.object.isRequired,
   redux: PropTypes.shape({
     state: PropTypes.object.isRequired,

@@ -19,7 +19,7 @@ const tdArray = [
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {cookies: ownProps.cookies, 
+  return {
     invoiceItems: state.invoiceItems,
     invoiceItemSuggestions: state.invoiceItemSuggestions.suggestions,
     activeIndex: state.invoiceItemSuggestions.activeIndex,
@@ -306,7 +306,6 @@ class ItemSearch extends Component {
 }
 
 ItemSearch.propTypes = {
-  cookies : PropTypes.object.isRequired,
   redux: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   redux: PropTypes.shape({

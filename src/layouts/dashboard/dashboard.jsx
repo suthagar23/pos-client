@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
 import Footer from '../../components/footer/footer.jsx'; 
-import { withCookies } from 'react-cookie'; 
 import dashboardRoutes from '../../routes/dashboard.jsx';
 import { connect } from 'react-redux'; 
 import Notifications from '../../components/notification/notification.jsx';
@@ -36,7 +35,7 @@ class Dashboard extends Component {
                 return <Redirect from={prop.path} to={prop.to} key={key}  />;
               return (
                 // <Route path={prop.path} component={prop.component}  key={key} cookies={ prop.cookies}/>
-                <Route path={prop.path} key={key} render={(props) => (<prop.component {...this.props}  cookies={this.props.cookies} />) }/>
+                <Route path={prop.path} key={key} render={(props) => (<prop.component {...this.props} />) }/>
               );
             })}
           </Switch>
@@ -47,9 +46,5 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
-  cookies : PropTypes.object.isRequired
-};
-
-const DashboardComponent = connect(mapStateToProps)(withCookies(Dashboard));
+const DashboardComponent = connect(mapStateToProps)(Dashboard);
 export default DashboardComponent;

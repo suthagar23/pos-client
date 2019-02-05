@@ -9,7 +9,8 @@ import Login from '../login/loginView.jsx';
 import { DeleteAuthCookie } from '../../utils/authUtils';
 
 const mapStateToProps = (state, ownProps) => {
-  return { auth: state.auth, cookies: ownProps.cookies, };
+  return { auth: state.auth, 
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -32,8 +33,7 @@ class Logout extends Component {
   }
   
   componentDidMount() {
-    const { cookies } = this.props;
-    DeleteAuthCookie(cookies);
+    DeleteAuthCookie();
   }
 
   render() {
@@ -55,7 +55,6 @@ class Logout extends Component {
 
 Logout.propTypes = {
   redux: PropTypes.object.isRequired,
-  cookies : PropTypes.object.isRequired,
   history : PropTypes.object.isRequired,
 };
 
